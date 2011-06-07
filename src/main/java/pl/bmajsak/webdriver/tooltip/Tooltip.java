@@ -11,6 +11,8 @@ public class Tooltip {
     public static final String DIV_ID = "jqueryWebDriverTooltip";
     
     private static final Long DEFAULT_TIME_SECONDS = 5000L;
+    
+    private static final Long SECOND = 1000L;
 
     private final EventFiringWebDriver driver;
     
@@ -23,13 +25,14 @@ public class Tooltip {
     }
     
     public void show(String title, String message, long tooltipOnScreenInSeconds) {
+        waitFor(SECOND);
         driver.executeScript(new CreateTooltipScript(title, message).apply());
         driver.executeScript(String.format("$('#%s').simpleDialog();", Tooltip.ID));
         driver.executeScript(String.format("$('#%s').click();", Tooltip.ID));
-        showFor(tooltipOnScreenInSeconds);
+        waitFor(tooltipOnScreenInSeconds);
     }
 
-    private void showFor(long seconds) {
+    private void waitFor(long seconds) {
         try {
             Thread.sleep(seconds);
         } catch (InterruptedException e) {

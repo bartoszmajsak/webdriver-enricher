@@ -1,6 +1,6 @@
 package pl.bmajsak.webdriver.script;
 
-import pl.bmajsak.webdriver.Tooltip;
+import pl.bmajsak.webdriver.tooltip.Tooltip;
 
 public class CreateTooltipScript implements Script {
 

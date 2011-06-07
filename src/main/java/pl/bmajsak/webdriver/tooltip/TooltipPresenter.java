@@ -1,10 +1,12 @@
-package pl.bmajsak.webdriver;
+package pl.bmajsak.webdriver.tooltip;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import pl.bmajsak.webdriver.PageEnricher;
+import pl.bmajsak.webdriver.WebDriverWrapper;
 import pl.bmajsak.webdriver.script.TooltipPresenceScript;
 
 import com.google.common.base.Preconditions;
@@ -34,8 +36,8 @@ public class TooltipPresenter {
         }
         
         if (!isTooltipLoaded()) {
-            pageEnricher.loadScript("jquery.simpledialog.0.1.min.js");
-            pageEnricher.loadCss("jquery.simpledialog.0.1.css");
+            pageEnricher.loadScript("jquery/jquery.simpledialog.0.1.min.js");
+            pageEnricher.loadCss("jquery/jquery.simpledialog.0.1.css");
         }
     }
     

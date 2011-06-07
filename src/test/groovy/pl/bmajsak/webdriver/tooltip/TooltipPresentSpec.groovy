@@ -1,8 +1,11 @@
-package pl.bmajsak.webdriver
+package pl.bmajsak.webdriver.tooltip
 
 import static org.fest.assertions.Assertions.*;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import pl.bmajsak.webdriver.PageEnricher
+import pl.bmajsak.webdriver.tooltip.TooltipPresenter;
 
 import spock.lang.*
 

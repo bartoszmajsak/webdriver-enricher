@@ -33,23 +33,13 @@ public class PageEnricher {
         driver.executeScript(new CssAppenderScript(stylesheet).apply());
     }
     
-    private String getFileAsString(String file) {
-        String content = "";
-        try {
-            URL jqueryUrl = getClass().getResource(file);
-            File jquery = new File(jqueryUrl.toURI());
-            content  = Files.toString(jquery, Charsets.UTF_8);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    public void loadJQuery() {
+        if (!isJQueryLoaded()) {
+            loadScript("jquery/jquery-1.6.1.min.js");
         }
-        return content;
     }
-
-    void loadJQuery() {
-        loadScript("jquery-1.6.1.min.js");
-    }
-
-    boolean isCssClassPresent(String className) {
+    
+    public boolean isCssClassPresent(String className) {
         CssClassPresenceScript cssClassPresenceScript = new CssClassPresenceScript(className);
         driver.executeScript(cssClassPresenceScript.apply());
         Object result = driver.executeScript(cssClassPresenceScript.call());
@@ -57,11 +47,23 @@ public class PageEnricher {
         "Expected return type from javascript call should be Boolean.");
         return ((Boolean) result).booleanValue();
     }
-
-    boolean isJQueryLoaded() {
+    
+    public boolean isJQueryLoaded() {
         Object result = driver.executeScript(new JQueryPresenceScript().apply());
         Preconditions.checkArgument((result instanceof Boolean),
         "Expected return type from javascript call should be Boolean.");
         return ((Boolean) result).booleanValue();
+    }
+    
+    private String getFileAsString(String file) {
+        String content = "";
+        try {
+            URL jqueryUrl = getClass().getClassLoader().getResource(file);
+            File jquery = new File(jqueryUrl.toURI());
+            content  = Files.toString(jquery, Charsets.UTF_8);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return content;
     }
 }

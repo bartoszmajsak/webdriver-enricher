@@ -1,4 +1,4 @@
-package pl.bmajsak.webdriver;
+package pl.bmajsak.webdriver.tooltip;
 
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 

@@ -27,7 +27,6 @@ public class PageEnricher {
         driver.executeScript(script);
     }
 
-
     public void loadCss(String stylesheetFilename) {
         String stylesheet = getFileAsString(stylesheetFilename);
         driver.executeScript(new CssAppenderScript(stylesheet).apply());

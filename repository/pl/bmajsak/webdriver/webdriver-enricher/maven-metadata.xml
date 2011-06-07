@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>pl.bmajsak.webdriver</groupId>
+  <artifactId>webdriver-enricher</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20110607205634</lastUpdated>
+  </versioning>
+</metadata>

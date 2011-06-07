@@ -10,7 +10,7 @@ public class Tooltip {
     
     public static final String DIV_ID = "jqueryWebDriverTooltip";
     
-    private static final Long DEFAULT_TIME_SECONDS = 3000L;
+    private static final Long DEFAULT_TIME_SECONDS = 5000L;
 
     private final EventFiringWebDriver driver;
     

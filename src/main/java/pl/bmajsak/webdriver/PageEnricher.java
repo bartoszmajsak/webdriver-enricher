@@ -13,6 +13,7 @@ import pl.bmajsak.webdriver.script.JQueryPresenceScript;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
+import com.google.common.io.Resources;
 
 public class PageEnricher {
 
@@ -57,9 +58,8 @@ public class PageEnricher {
     private String getFileAsString(String file) {
         String content = "";
         try {
-            URL jqueryUrl = getClass().getClassLoader().getResource(file);
-            File jquery = new File(jqueryUrl.toURI());
-            content  = Files.toString(jquery, Charsets.UTF_8);
+            URL fileUrl = getClass().getClassLoader().getResource(file);
+            content  = Resources.toString(fileUrl, Charsets.UTF_8);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -20,6 +20,13 @@
         <version.spock>0.5-groovy-1.8</version.spock>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>gh-pages</id>
+            <url>file:///${basedir}-pages/repository/</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

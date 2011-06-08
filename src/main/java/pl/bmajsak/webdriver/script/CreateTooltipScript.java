@@ -1,6 +1,6 @@
 package pl.bmajsak.webdriver.script;
 
-import pl.bmajsak.webdriver.tooltip.Tooltip;
+import pl.bmajsak.webdriver.tooltip.TooltipEnricher;
 
 public class CreateTooltipScript implements Script {
 
@@ -20,7 +20,7 @@ public class CreateTooltipScript implements Script {
     }
 
     public String apply() {
-        return String.format(DIALOG_ELEMENT_CREATION, Tooltip.DIV_ID, title, message, Tooltip.ID);
+        return String.format(DIALOG_ELEMENT_CREATION, TooltipEnricher.DIV_ID, title, message, TooltipEnricher.ID);
     }
     
 }

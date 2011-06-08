@@ -5,19 +5,19 @@ import static org.fest.assertions.Assertions.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import pl.bmajsak.webdriver.PageEnricher
-import pl.bmajsak.webdriver.tooltip.TooltipPresenter;
+import pl.bmajsak.webdriver.tooltip.Tooltip;
 
 import spock.lang.*
 
 
-class TooltipPresentSpec extends Specification {
+class TooltipSpec extends Specification {
 
     @Shared def driver = new FirefoxDriver();
     
     def "Should not detect tooltip on google"() {
         
         given : "Google website is loaded"
-            def tooltipPresenter = new TooltipPresenter(driver)
+            def tooltipPresenter = new Tooltip(driver)
             driver.get("http://google.com")
             
         when : "Checks for tooltip script present"
@@ -30,7 +30,7 @@ class TooltipPresentSpec extends Specification {
     def "Should not detect tooltip on jQuery project page"() {
         
         given : "Google website is loaded"
-            def tooltipPresenter = new TooltipPresenter(driver)
+            def tooltipPresenter = new Tooltip(driver)
             driver.get("http://jquery.com")
             
         when : "Checks for tooltip script present"
@@ -43,7 +43,7 @@ class TooltipPresentSpec extends Specification {
     def "Should detect tooltip on it's demo page"() {
         
         given : "Tooltip demo website is loaded"
-            def tooltipPresenter = new TooltipPresenter(driver)
+            def tooltipPresenter = new Tooltip(driver)
             driver.get("http://www.mudaimemo.com/p/simpledialog/")
             
         when : "Checks for tooltip script present"
@@ -56,7 +56,7 @@ class TooltipPresentSpec extends Specification {
     def "Should insert tooltip on google page"() {
         
         given : "Google website is loaded"
-            def tooltipPresenter = new TooltipPresenter(driver)
+            def tooltipPresenter = new Tooltip(driver)
             driver.get("http://google.com")
             
         when : "Extend it with jQuery and tooltip"
@@ -68,7 +68,7 @@ class TooltipPresentSpec extends Specification {
     
     def "Should have tooltip stylesheet attached together with script"() {
         given : "Google website is loaded"
-            def tooltipPresenter = new TooltipPresenter(driver)
+            def tooltipPresenter = new Tooltip(driver)
             def pageEnricher = new PageEnricher(driver);
             driver.get("http://google.com")
             
@@ -81,7 +81,7 @@ class TooltipPresentSpec extends Specification {
     
     def "Should show tooltip when visiting Google website"() {
         given : "Google website is loaded"
-            def tooltipPresenter = new TooltipPresenter(driver)
+            def tooltipPresenter = new Tooltip(driver)
             def pageEnricher = new PageEnricher(driver);
             driver.get("http://google.com")
         

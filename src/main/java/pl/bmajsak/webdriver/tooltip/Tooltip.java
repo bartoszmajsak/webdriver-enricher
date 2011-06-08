@@ -1,50 +1,64 @@
 package pl.bmajsak.webdriver.tooltip;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import pl.bmajsak.webdriver.script.CreateTooltipScript;
+import pl.bmajsak.webdriver.PageEnricher;
+import pl.bmajsak.webdriver.WebDriverWrapper;
+import pl.bmajsak.webdriver.script.TooltipPresenceScript;
+
+import com.google.common.base.Preconditions;
 
 public class Tooltip {
 
-    public static final String ID = "jqueryWebDriverTooltipLink";
-    
-    public static final String DIV_ID = "jqueryWebDriverTooltip";
-    
-    private static final Long DEFAULT_TIME_SECONDS = 5000L;
-    
-    private static final Long SECOND = 1000L;
-
     private final EventFiringWebDriver driver;
+
+    private final PageEnricher pageEnricher;
     
-    public Tooltip(EventFiringWebDriver driver) {
-        this.driver = driver;
+    public Tooltip(WebDriver drv) {
+        driver = WebDriverWrapper.castOrWrap(drv);
+        pageEnricher = new PageEnricher(driver);
     }
+
 
     public void show(String title, String message) {
-        show(title, message, DEFAULT_TIME_SECONDS);
-    }
-    
-    public void show(String title, String message, long tooltipOnScreenInSeconds) {
-        waitFor(SECOND);
-        driver.executeScript(new CreateTooltipScript(title, message).apply());
-        driver.executeScript(String.format("$('#%s').simpleDialog();", Tooltip.ID));
-        driver.executeScript(String.format("$('#%s').click();", Tooltip.ID));
-        waitFor(tooltipOnScreenInSeconds);
+        loadTooltip();
+        TooltipEnricher tooltipEnricher = new TooltipEnricher(driver);
+        tooltipEnricher.show(title, message);
+        tooltipEnricher.dispose();
     }
 
-    private void waitFor(long seconds) {
-        try {
-            Thread.sleep(seconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    void loadTooltip() {
+        if (!pageEnricher.isJQueryLoaded()) {
+            pageEnricher.loadJQuery();
+        }
+        
+        if (!isTooltipLoaded()) {
+            pageEnricher.loadScript("jquery/jquery.simpledialog.0.1.min.js");
+            pageEnricher.loadCss("jquery/jquery.simpledialog.0.1.css");
         }
     }
-
-    public void dispose() {
-        driver.executeScript("$.simpleDialog.close();");
-        driver.executeScript(String.format("$('#%s').remove();", Tooltip.ID));
-        driver.executeScript(String.format("$('#%s').remove();", Tooltip.DIV_ID));
+    
+    boolean isTooltipLoaded() {
+        if (!pageEnricher.isJQueryLoaded()) {
+            return false;
+        }
+        Object result = driver.executeScript(new TooltipPresenceScript().apply());
+        Preconditions.checkArgument((result instanceof Boolean),
+        "Expected return type from javascript call should be Boolean.");
+        return ((Boolean) result).booleanValue();
     }
-
-
+    
+    boolean isTooltipPresent() {
+        boolean tooltipFound = true;
+        try {
+            driver.findElement(By.id(TooltipEnricher.ID));
+        } catch (NoSuchElementException e) {
+            tooltipFound = false;
+        }
+        return tooltipFound;
+    }
+    
 }

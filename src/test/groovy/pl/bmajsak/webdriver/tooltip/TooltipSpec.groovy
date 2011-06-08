@@ -20,6 +20,10 @@ class TooltipSpec extends Specification {
         browser.fullscreen();
     }
     
+    def cleanupSpec() {
+        driver.quit()
+    }
+    
     def "Should not detect tooltip on google"() {
         
         given : "Google website is loaded"
@@ -97,10 +101,6 @@ class TooltipSpec extends Specification {
             
         then :
             assertThat(pageEnricher.isCssClassPresent(".sd_content")).isTrue()
-    }
-    
-    def cleanupSpec() {
-        driver.quit()
     }
     
 }

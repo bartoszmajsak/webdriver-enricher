@@ -4,6 +4,7 @@ import static org.fest.assertions.Assertions.*;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import pl.bmajsak.webdriver.Browser
 import pl.bmajsak.webdriver.PageEnricher
 import pl.bmajsak.webdriver.tooltip.Tooltip;
 
@@ -12,7 +13,12 @@ import spock.lang.*
 
 class TooltipSpec extends Specification {
 
-    @Shared def driver = new FirefoxDriver();
+    @Shared driver = new FirefoxDriver();
+    
+    def setupSpec() {
+        def browser = new Browser(driver);
+        browser.fullscreen();
+    }
     
     def "Should not detect tooltip on google"() {
         
@@ -93,9 +99,8 @@ class TooltipSpec extends Specification {
             assertThat(pageEnricher.isCssClassPresent(".sd_content")).isTrue()
     }
     
-    def "Close browser"() {
-        setup:
-            driver.quit()
+    def cleanupSpec() {
+        driver.quit()
     }
     
 }

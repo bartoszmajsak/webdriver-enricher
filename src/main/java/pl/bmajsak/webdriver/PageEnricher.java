@@ -1,9 +1,9 @@
 package pl.bmajsak.webdriver;
 
-import java.io.File;
 import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import pl.bmajsak.webdriver.script.CssAppenderScript;
@@ -12,7 +12,6 @@ import pl.bmajsak.webdriver.script.JQueryPresenceScript;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
-import com.google.common.io.Files;
 import com.google.common.io.Resources;
 
 public class PageEnricher {
@@ -23,6 +22,14 @@ public class PageEnricher {
         driver = WebDriverWrapper.castOrWrap(drv);
     }
 
+    public void hideMouseCursor() {
+        Long screenWidth = (Long) driver.executeScript("return screen.width;");
+        Long screenHeight = (Long) driver.executeScript("return screen.height;");
+        int xOffset = screenWidth.intValue() / 2;
+        int yOffset = screenHeight.intValue() / 2;
+        new Actions(driver).moveByOffset(xOffset, yOffset).build().perform();
+    }
+    
     public void loadScript(String scriptFilename) {
         String script = getFileAsString(scriptFilename);
         driver.executeScript(script);

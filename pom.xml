@@ -13,7 +13,7 @@
         <version.groovy>1.8.0</version.groovy>
         <version.guava>r09</version.guava>
         <version.junit>4.8.2</version.junit>
-        <version.selenium>2.0rc2</version.selenium>
+        <version.selenium>2.11.0</version.selenium>
         <version.fest.assert>1.4</version.fest.assert>
         <version.maven.compiler>2.3.1</version.maven.compiler>
         <version.groovy.eclipse.compile>2.5.1-M3</version.groovy.eclipse.compile>
@@ -32,11 +32,13 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${version.groovy}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -45,8 +47,9 @@
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium</artifactId>
+            <artifactId>selenium-java</artifactId>
             <version>${version.selenium}</version>
+            <scope>provided</scope>
             <type>pom</type>
             <exclusions>
                 <exclusion>
@@ -59,6 +62,7 @@
             <artifactId>fest-assert</artifactId>
             <version>${version.fest.assert}</version>
             <type>jar</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.spockframework</groupId>

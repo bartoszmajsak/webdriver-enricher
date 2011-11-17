@@ -7,7 +7,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import pl.bmajsak.webdriver.PageEnricher;
 import pl.bmajsak.webdriver.WebDriverWrapper;
-import pl.bmajsak.webdriver.script.TooltipPresenceScript;
+import pl.bmajsak.webdriver.script.TooltipPresenceVerificationScript;
 
 import com.google.common.base.Preconditions;
 
@@ -45,7 +45,7 @@ public class Tooltip {
         if (!pageEnricher.isJQueryLoaded()) {
             return false;
         }
-        Object result = driver.executeScript(new TooltipPresenceScript().apply());
+        Object result = driver.executeScript(new TooltipPresenceVerificationScript().apply());
         Preconditions.checkArgument((result instanceof Boolean),
         "Expected return type from javascript call should be Boolean.");
         return ((Boolean) result).booleanValue();

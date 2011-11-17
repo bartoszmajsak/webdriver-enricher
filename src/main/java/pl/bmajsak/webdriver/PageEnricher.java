@@ -7,8 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import pl.bmajsak.webdriver.script.CssAppenderScript;
-import pl.bmajsak.webdriver.script.CssClassPresenceScript;
-import pl.bmajsak.webdriver.script.JQueryPresenceScript;
+import pl.bmajsak.webdriver.script.CssClassPresenceVerificationScript;
+import pl.bmajsak.webdriver.script.JQueryPresenceVerificationScript;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
@@ -47,7 +47,7 @@ public class PageEnricher {
     }
     
     public boolean isCssClassPresent(String className) {
-        CssClassPresenceScript cssClassPresenceScript = new CssClassPresenceScript(className);
+        CssClassPresenceVerificationScript cssClassPresenceScript = new CssClassPresenceVerificationScript(className);
         driver.executeScript(cssClassPresenceScript.apply());
         Object result = driver.executeScript(cssClassPresenceScript.call());
         Preconditions.checkArgument((result instanceof Boolean),
@@ -56,7 +56,7 @@ public class PageEnricher {
     }
     
     public boolean isJQueryLoaded() {
-        Object result = driver.executeScript(new JQueryPresenceScript().apply());
+        Object result = driver.executeScript(new JQueryPresenceVerificationScript().apply());
         Preconditions.checkArgument((result instanceof Boolean),
         "Expected return type from javascript call should be Boolean.");
         return ((Boolean) result).booleanValue();
